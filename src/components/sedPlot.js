@@ -20,7 +20,7 @@ function getTaxonomyTransformBySPASSLabel(categoriesDict, label) {
     for (let key in categoriesDict) {
         if (categoriesDict.hasOwnProperty(key)) {
             if (categoriesDict[key].SPASS && categoriesDict[key].SPASS.includes(label)) {
-                return categoriesDict[key].description;
+                return categoriesDict[key];
             }
         }
     }
