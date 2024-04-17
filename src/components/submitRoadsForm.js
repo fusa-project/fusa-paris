@@ -3,10 +3,6 @@ import moment from 'moment'
 
 const handleRoadsSubmit = async (data, actions) => {
   var user_mail = 'labacam.fusa@gmail.com'
-  var user = {
-    category: 'citizen',
-    username: user_mail
-  }
 
   var upload_timestamp = moment().unix()
 
@@ -31,7 +27,7 @@ const handleRoadsSubmit = async (data, actions) => {
     var labels = []
   }
 
-  /*var data = {
+  var data = {
     name: data.name,
     description: data.description,
     audio: data.audio,
@@ -40,14 +36,7 @@ const handleRoadsSubmit = async (data, actions) => {
     uploaded_at: upload_timestamp,
     latitude: data.latitude,
     longitude: data.longitude,
-    user: user,
     labels: labels,
-    period: data.period
-  }
-  */
-  var data = {
-    audio: data.audio,
-    video: data.video,
     period: data.period
   }
 
