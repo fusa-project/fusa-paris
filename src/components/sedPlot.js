@@ -39,8 +39,10 @@ const SEDPlot = ({ modelOutput }) => {
     Object.entries(filtered_predictions).forEach(([label, intervals], index) => {
         console.log(getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label))
         intervals.forEach(interval => {
+            console.log("interval", interval)
             var currentData = {
-                x: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['description'],//counter,
+                //x: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['description'],
+                x: counter,
                 y: [default_date + interval.begin * 1000, default_date + interval.end * 1000],
                 label: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['description'],
                 pbb: interval.probability,
