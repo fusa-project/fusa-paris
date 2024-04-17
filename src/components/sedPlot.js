@@ -16,7 +16,7 @@ function filterPredictions(categoriesDict, threshold) {
     return filteredDict
 }
 
-function getDescription(categoriesDict, label) {
+function getTaxonomyTransformBySPASSLabel(categoriesDict, label) {
     for (let key in categoriesDict) {
         if (categoriesDict.hasOwnProperty(key)) {
             if (categoriesDict[key].SPASS && categoriesDict[key].SPASS.includes(label)) {
@@ -38,14 +38,14 @@ const SEDPlot = ({ modelOutput }) => {
     let counter = 1
     Object.entries(filtered_predictions).forEach(([label, intervals], index) => {
         console.log(label, intervals)
-        console.log(getDescription(fusa_taxonomy, label))
+        console.log(getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label))
         intervals.forEach(interval => {
             data.push({
                 x: counter,
-                label: getDescription(fusa_taxonomy, label),
+                label: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['description'],
                 y: [default_date + interval.begin * 1000, default_date + interval.end * 1000],
 		pbb: interval.probability,
-		color: fusa_taxonomy[label]['color']
+		color: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['color']
             });
         });
         if (intervals.length > 0){
