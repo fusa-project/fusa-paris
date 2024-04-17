@@ -18,13 +18,13 @@ function filterPredictions(categoriesDict, threshold) {
 
 function getDescription(categoriesDict, label) {
     for (let key in categoriesDict) {
-        if (categoriesDict.hasOwnProperty(clave)) {
+        if (categoriesDict.hasOwnProperty(key)) {
             if (categoriesDict[key].SPASS && categoriesDict[key].SPASS.includes(label)) {
                 return categoriesDict[key].description;
             }
         }
     }
-    return null; // Si no se encuentra ninguna descripción para "river"
+    return null;
 }
 
 const SEDPlot = ({ modelOutput }) => {
