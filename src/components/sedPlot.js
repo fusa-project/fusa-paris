@@ -37,16 +37,17 @@ const SEDPlot = ({ modelOutput }) => {
     let data = []
     let counter = 1
     Object.entries(filtered_predictions).forEach(([label, intervals], index) => {
-        console.log(label, intervals)
         console.log(getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label))
         intervals.forEach(interval => {
-            data.push({
-                x: counter,
-                label: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['description'],
+            var currentData = {
+                x: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['description'],//counter,
                 y: [default_date + interval.begin * 1000, default_date + interval.end * 1000],
-		pbb: interval.probability,
-		color: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['color']
-            });
+                label: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['description'],
+                pbb: interval.probability,
+                color: getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label)['color']
+            }
+            console.log("CURRENTDATA", currentData)
+            data.push(currentData);
         });
         if (intervals.length > 0){
             counter++
@@ -57,11 +58,11 @@ const SEDPlot = ({ modelOutput }) => {
         animationEnabled: true,
         theme: 'light2',
         axisX: {
-            title: 'Tiempo',
+            title: 'Fuentes',
             reversed: true
         },
         axisY: {
-            title: 'Fuentes',
+            title: 'Tiempo',
             includeZero: true,
             minimum: default_date,
             interval: (1000 * 5),
