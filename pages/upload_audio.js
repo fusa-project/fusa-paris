@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Flex, Stack } from '@chakra-ui/react'
 import { Formik, Form, ErrorMessage } from 'formik'
-import { Grid, Backdrop, CircularProgress } from '@material-ui/core'
+import { Grid, Backdrop, CircularProgress } from '@mui/material'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import Title from '@components/title'
@@ -100,6 +100,7 @@ const UploadAudio = props => {
           openSuccess={openSuccess}
           handleCloseSuccess={handleCloseSuccess}
           modelOutput={modelOutput}
+          modelType={"TAG"}
         />
         <Grid item xs={12}>
           <Head>

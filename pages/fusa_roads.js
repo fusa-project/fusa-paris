@@ -102,6 +102,7 @@ const FusaRoads = props => {
           openSuccess={openSuccess}
           handleCloseSuccess={handleCloseSuccess}
           modelOutput={modelOutput}
+          modelType={"SED"}
         />
         <Grid item xs={12}>
           <Head>

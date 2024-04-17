@@ -20,7 +20,8 @@ const Transition = forwardRef(function Transition (props, ref) {
 const ClassificationDialog = ({
   openSuccess,
   handleCloseSuccess,
-  modelOutput
+  modelOutput,
+  modelType
 }) => {
   return (
     <Dialog
@@ -38,7 +39,8 @@ const ClassificationDialog = ({
           <p>
             FuSA ha identificado las siguientes fuentes sonoras:
           </p>
-	  <SEDPlot modelOutput={modelOutput}/>
+          {modelType === "TAG" && <TagPlot modelOutput={modelOutput} />}
+          {modelType === "SED" && <SEDPlot modelOutput={modelOutput} />}
         </div>
       </DialogContent>
       <DialogActions>
