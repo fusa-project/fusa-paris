@@ -80,6 +80,7 @@ const FusaRoads = props => {
         setOpenSuccess(true)
         var model_labels = res.data[0].categories
         var audio_duration = data.audio.duration
+        console.log(model_labels, audio_duration)
         setModelOutput([model_labels, audio_duration])
       } else setOpenFailed(true)
       setLoading(false)
