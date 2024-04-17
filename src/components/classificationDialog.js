@@ -9,7 +9,7 @@ import {
 import { forwardRef } from 'react'
 import { fusa_taxonomy } from '@data/fusa_taxonomy'
 import dynamic from 'next/dynamic'
-const ClassificationPlot = dynamic(() => import("@components/classificationPlot"),  { ssr: false })
+const TagPlot = dynamic(() => import("@components/tagPlot"),  { ssr: false })
 const SEDPlot = dynamic(() => import("@components/sedPlot"),  { ssr: false })
 
 
@@ -38,7 +38,7 @@ const ClassificationDialog = ({
           <p>
             FuSA ha identificado las siguientes fuentes sonoras:
           </p>
-	  <ClassificationPlot modelOutput={modelOutput}/>
+	  <SEDPlot modelOutput={modelOutput}/>
         </div>
       </DialogContent>
       <DialogActions>

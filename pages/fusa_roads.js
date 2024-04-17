@@ -78,10 +78,11 @@ const FusaRoads = props => {
     handleRoadsSubmit(data, actions).then(res => {
       if (res.status == 200) {
         console.log(data)
+        console.log(res)
         setOpenSuccess(true)
-        //var model_labels = res.data.data.labels[1].categories
-        //var audio_duration = res.data.data.duration
-        //setModelOutput([model_labels, audio_duration])
+        var model_labels = res.data.data.labels[1].categories
+        var audio_duration = res.data.data.duration
+        setModelOutput([model_labels, audio_duration])
       } else setOpenFailed(true)
       setLoading(false)
     })

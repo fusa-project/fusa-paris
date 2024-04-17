@@ -1,4 +1,3 @@
-import CanvasJSReact from '../lib/canvasjs.react'
 import { CanvasJS } from '../lib/canvasjs.react'
 import { CanvasJSChart } from '../lib/canvasjs.react'
 import { fusa_taxonomy } from '@data/fusa_taxonomy'
@@ -58,7 +57,7 @@ function calculateMetrics (filteredPredictions, audioDuration) {
   return df
 }
 
-const ClassificationPlot = ({ modelOutput }) => {
+const TagPlot = ({ modelOutput }) => {
   var audio_duration = modelOutput[1]
   const threshold = 0.01
   var filtered_predictions = filterPredictions(modelOutput[0], threshold)
@@ -111,4 +110,4 @@ const ClassificationPlot = ({ modelOutput }) => {
     </div>
   )
 }
-export default ClassificationPlot
+export default TagPlot
