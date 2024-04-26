@@ -47,8 +47,12 @@ const handleRoadsSubmit = async (data, actions) => {
         if (res.status == 200) {
           actions.resetForm()
           actions.setSubmitting(false)
-          document.getElementById('audio.data').value = ''
-          document.getElementById('video.data').value = ''
+          if (document.getElementById('audio.data')) {
+            document.getElementById('audio.data').value = '';
+          }
+          if (document.getElementById('video.data')) {
+            document.getElementById('video.data').value = '';
+          }
         }
         resolve(res)
       })

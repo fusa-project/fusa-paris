@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router';
 import { Flex, Stack } from '@chakra-ui/react'
-import { Formik, Form, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { Grid, Backdrop, CircularProgress } from '@material-ui/core'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
@@ -30,6 +31,11 @@ const MapWithNoSSR = dynamic(
 )
 
 const FusaRoads = props => {
+  const router = useRouter();
+  const { type } = router.query;
+
+  // Lógica para manejar el tipo de carretera
+  console.log('Tipo de carretera:', type);
 
   //Map coords
   const [position, setPosition] = useState({ lat: '', lng: '' })
@@ -80,7 +86,7 @@ const FusaRoads = props => {
         setOpenSuccess(true)
         var model_labels = res.data[0].categories
         var audio_duration = data.audio.duration
-        console.log(model_labels, audio_duration)
+        //console.log(model_labels, audio_duration)
         setModelOutput([model_labels, audio_duration])
       } else setOpenFailed(true)
       setLoading(false)
@@ -131,19 +137,26 @@ const FusaRoads = props => {
               <Stack alignItems='left' spacing='10px'>
                 <Form>
                   <Grid container justifyContent='center' spacing={2}>
-                    <Grid item xs={6}>
-                      <Grid container justifyContent='center' alignItems='center'>
-                        <VideoFileInput name='video.data' />
+                    {type === 'video' && (
+                      <Grid item xs={6}>
+                        <Grid container justifyContent='center' alignItems='center'>
+                          <VideoFileInput name='video.data' />
+                        </Grid>
+                        <div style={{ "color": "#f00" }}>
+                          <ErrorMessage name="video.data" />
+                        </div>
                       </Grid>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Grid container justifyContent='center' alignItems='center'>
-                        <AudioFileInput name='audio.data' />
+                    )}
+                    {type === 'audio' && (
+                      <Grid item xs={6}>
+                        <Grid container justifyContent='center' alignItems='center'>
+                          <AudioFileInput name='audio.data' />
+                        </Grid>
+                      <div style={{ "color": "#f00" }}>
+                        <ErrorMessage name="audio.data" />
+                      </div>
                       </Grid>
-                    </Grid>
-                    <div style={{ "color": "#f00" }}>
-                      <ErrorMessage name="audio.data" />
-                    </div>
+                    )}
                   </Grid>
                   <NameInput name='name' label='Título' />
                   <Grid container>
