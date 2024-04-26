@@ -24,7 +24,8 @@ const RoadsReportDialog = ({
   console.log(modelOutput)
   const isAudio = Object.keys(modelOutput["audio_labels"]).length !== 0;
   const isVideo = Object.keys(modelOutput["video_labels"]).length !== 0;
-
+  console.log("audio_labels", modelOutput["audio_labels"])
+  console.log("video_labels", modelOutput["video_labels"])
   const handleOpenClassificationDialog = () => {
     setOpenClassificationDialog(true);
   };

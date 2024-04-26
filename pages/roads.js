@@ -34,9 +34,6 @@ const FusaRoads = props => {
   const router = useRouter();
   const { type } = router.query;
 
-  // Lógica para manejar el tipo de carretera
-  console.log('Tipo de carretera:', type);
-
   //Map coords
   const [position, setPosition] = useState({ lat: '', lng: '' })
 
@@ -92,6 +89,7 @@ const FusaRoads = props => {
         setOpenSuccess(true)
         var audio_labels;
         var video_labels;
+        console.log("res.data", res.data)
         if (res.data[0].categories === undefined) {
           audio_labels = {};
         } else {
