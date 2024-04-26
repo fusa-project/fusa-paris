@@ -9,7 +9,7 @@ import {
 import { useState, forwardRef } from 'react'
 import AudioReportOutput from '@components/Output/audioReportOutput'
 import VideoReportOutput from '@components/Output/videoReportOutput'
-import ClassificationDialog from '@components/Output/classificationDialog'
+import AudioClassificationDialog from '@components/Output/audioClassificationDialog'
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
@@ -21,6 +21,9 @@ const RoadsReportDialog = ({
   modelOutput
 }) => {
   const [openClassificationDialog, setOpenClassificationDialog] = useState(false);
+  console.log(modelOutput)
+  const isAudio = Object.keys(modelOutput["audio_labels"]).length !== 0;
+  const isVideo = Object.keys(modelOutput["video_labels"]).length !== 0;
 
   const handleOpenClassificationDialog = () => {
     setOpenClassificationDialog(true);
@@ -55,16 +58,20 @@ const RoadsReportDialog = ({
         <DialogTitle>{'Métricas FuSA Roads'}</DialogTitle>
         <DialogContent>
           <div className={'MuiTypography-body1 MuiTypography-colorTextSecondary'}>
-            <AudioReportOutput output={audioOutputResults} />
-            <VideoReportOutput output={videoOutputResults} />
+            {isAudio &&
+              <div>
+                <AudioReportOutput output={audioOutputResults} />
+                <Button onClick={handleOpenClassificationDialog}>Ver detalle clasificación de audio</Button>
+              </div>
+            }
+            {isVideo && <VideoReportOutput output={videoOutputResults} />}
           </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseSuccess}>Entendido</Button>
-          <Button onClick={handleOpenClassificationDialog}>Ver detalle análisis de audio</Button>
         </DialogActions>
       </Dialog>
-      <ClassificationDialog
+      <AudioClassificationDialog
         openSuccess={openClassificationDialog}
         handleCloseSuccess={handleCloseClassificationDialog}
         modelOutput={modelOutput}
