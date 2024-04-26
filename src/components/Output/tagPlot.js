@@ -1,5 +1,5 @@
-import { CanvasJS } from '../lib/canvasjs.react'
-import { CanvasJSChart } from '../lib/canvasjs.react'
+import { CanvasJS } from '../../lib/canvasjs.react'
+import { CanvasJSChart } from '../../lib/canvasjs.react'
 import { fusa_taxonomy } from '@data/fusa_taxonomy'
 
 function filterPredictions (categoriesDict, threshold) {
@@ -58,9 +58,9 @@ function calculateMetrics (filteredPredictions, audioDuration) {
 }
 
 const TagPlot = ({ modelOutput }) => {
-  var audio_duration = modelOutput[1]
+  var audio_duration = modelOutput["audio_duration"]
   const threshold = 0.01
-  var filtered_predictions = filterPredictions(modelOutput[0], threshold)
+  var filtered_predictions = filterPredictions(modelOutput["audio_labels"], threshold)
   var metrics = calculateMetrics(filtered_predictions, audio_duration)
   var events = metrics['event']
   var avg_accs = metrics['avg_acc']

@@ -19,7 +19,7 @@ import InstructionsDialogButton from '@components/instructionsDialogButton'
 import handleRoadsSubmit from '@components/submitRoadsForm'
 import { initialRoadsValues, validationRoadsSchema } from '@components/formData'
 import GeneralSnackbars from '@components/generalSnackbars'
-import ClassificationDialog from '@components/classificationDialog'
+import RoadsReportDialog from '@components/Output/roadsReportDialog'
 
 const MapWithNoSSR = dynamic(
   () => {
@@ -78,16 +78,38 @@ const FusaRoads = props => {
   //Submit
   const submitButtonRef = useRef()
 
-  const [modelOutput, setModelOutput] = useState({})
+  const [modelOutput, setModelOutput] = useState({
+    "audio_labels": {},
+    "audio_duration": 0, 
+    "video_labels": {},
+    "video_duration": 0, 
+  })
+
   const submitForm = (data, actions) => {
     setLoading(true)
     handleRoadsSubmit(data, actions).then(res => {
       if (res.status == 200) {
         setOpenSuccess(true)
-        var model_labels = res.data[0].categories
+        var audio_labels;
+        var video_labels;
+        if (res.data[0].categories === undefined) {
+          audio_labels = {};
+        } else {
+          audio_labels = res.data[0].categories;
+        }
+        if (res.data[1].categories === undefined) {
+          video_labels = {};
+        } else {
+          video_labels = res.data[1].categories;
+        }
         var audio_duration = data.audio.duration
-        //console.log(model_labels, audio_duration)
-        setModelOutput([model_labels, audio_duration])
+        var video_duration = data.video.duration
+        setModelOutput({
+          "audio_labels": audio_labels,
+          "audio_duration": audio_duration,
+          "video_labels": video_labels,
+          "video_duration": video_duration,
+        })
       } else setOpenFailed(true)
       setLoading(false)
     })
@@ -104,11 +126,10 @@ const FusaRoads = props => {
           openFailed={openFailed}
           handleCloseFailed={handleCloseFailed}
         />
-        <ClassificationDialog
+        <RoadsReportDialog
           openSuccess={openSuccess}
           handleCloseSuccess={handleCloseSuccess}
           modelOutput={modelOutput}
-          modelType={"SED"}
         />
         <Grid item xs={12}>
           <Head>
@@ -152,9 +173,9 @@ const FusaRoads = props => {
                         <Grid container justifyContent='center' alignItems='center'>
                           <AudioFileInput name='audio.data' />
                         </Grid>
-                      <div style={{ "color": "#f00" }}>
-                        <ErrorMessage name="audio.data" />
-                      </div>
+                        <div style={{ "color": "#f00" }}>
+                          <ErrorMessage name="audio.data" />
+                        </div>
                       </Grid>
                     )}
                   </Grid>

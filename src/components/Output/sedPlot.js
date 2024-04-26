@@ -1,5 +1,5 @@
-import { CanvasJS } from '../lib/canvasjs.react'
-import { CanvasJSChart } from '../lib/canvasjs.react'
+import { CanvasJS } from '../../lib/canvasjs.react'
+import { CanvasJSChart } from '../../lib/canvasjs.react'
 import { fusa_taxonomy } from '@data/fusa_taxonomy'
 
 function filterPredictions(categoriesDict, threshold) {
@@ -28,16 +28,16 @@ function getTaxonomyTransformBySPASSLabel(categoriesDict, label) {
 }
 
 const SEDPlot = ({ modelOutput }) => {
-    var audio_duration = modelOutput[1] * 1000
+    var audio_duration = modelOutput["audio_duration"] * 1000
     var default_date = (new Date(2023, 0, 0, 0, 0)).getTime()
     const threshold = 0.1
 
-    var filtered_predictions = filterPredictions(modelOutput[0], threshold)
+    var filtered_predictions = filterPredictions(modelOutput["audio_labels"], threshold)
 
     let data = []
     let counter = 1
     Object.entries(filtered_predictions).forEach(([label, intervals], index) => {
-        console.log(getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label))
+        //console.log(getTaxonomyTransformBySPASSLabel(fusa_taxonomy, label))
         intervals.forEach(interval => {
             var currentData = {
                 x: counter,

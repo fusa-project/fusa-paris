@@ -1,0 +1,77 @@
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Slide,
+  Button
+} from '@material-ui/core'
+import { useState, forwardRef } from 'react'
+import AudioReportOutput from '@components/Output/audioReportOutput'
+import VideoReportOutput from '@components/Output/videoReportOutput'
+import ClassificationDialog from '@components/Output/classificationDialog'
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />
+})
+
+const RoadsReportDialog = ({
+  openSuccess,
+  handleCloseSuccess,
+  modelOutput
+}) => {
+  const [openClassificationDialog, setOpenClassificationDialog] = useState(false);
+
+  const handleOpenClassificationDialog = () => {
+    setOpenClassificationDialog(true);
+  };
+
+  const handleCloseClassificationDialog = () => {
+    setOpenClassificationDialog(false);
+  };
+
+  const audioOutputResults = [
+    "Un 30% de la duración del audiopresenta el evento Motocicleta",
+    "Un 80% de la duración del audiopresenta el evento Bla bla",
+    "Un 10% de la duración del audiopresenta el evento bocina"
+  ];
+  const videoOutputResults = [
+    { class_name: "Livianos", counter: 10, speed_average: 50 },
+    { class_name: "Motocicletas", counter: 15, speed_average: 45 },
+    { class_name: "Pesados", counter: 20, speed_average: 55 }
+  ];
+
+  return (
+    <div>
+      <Dialog
+        maxWidth='lg'
+        fullWidth
+        open={openSuccess}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseSuccess}
+        aria-describedby='alert-dialog-slide-description'
+      >
+        <DialogTitle>{'Métricas FuSA Roads'}</DialogTitle>
+        <DialogContent>
+          <div className={'MuiTypography-body1 MuiTypography-colorTextSecondary'}>
+            <AudioReportOutput output={audioOutputResults} />
+            <VideoReportOutput output={videoOutputResults} />
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSuccess}>Entendido</Button>
+          <Button onClick={handleOpenClassificationDialog}>Ver detalle análisis de audio</Button>
+        </DialogActions>
+      </Dialog>
+      <ClassificationDialog
+        openSuccess={openClassificationDialog}
+        handleCloseSuccess={handleCloseClassificationDialog}
+        modelOutput={modelOutput}
+        modelType={"SED"}
+      />
+    </div>
+  )
+}
+
+export default RoadsReportDialog

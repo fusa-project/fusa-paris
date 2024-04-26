@@ -9,15 +9,15 @@ import {
 import { forwardRef } from 'react'
 import { fusa_taxonomy } from '@data/fusa_taxonomy'
 import dynamic from 'next/dynamic'
-const TagPlot = dynamic(() => import("@components/tagPlot"),  { ssr: false })
-const SEDPlot = dynamic(() => import("@components/sedPlot"),  { ssr: false })
+const TagPlot = dynamic(() => import("@components/Output/tagPlot"),  { ssr: false })
+const SEDPlot = dynamic(() => import("@components/Output/sedPlot"),  { ssr: false })
 
 
 const Transition = forwardRef(function Transition (props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
-const ClassificationDialog = ({
+const AudioClassificationDialog = ({
   openSuccess,
   handleCloseSuccess,
   modelOutput,
@@ -49,4 +49,4 @@ const ClassificationDialog = ({
     </Dialog>
   )
 }
-export default ClassificationDialog
+export default AudioClassificationDialog

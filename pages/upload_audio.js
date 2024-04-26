@@ -17,7 +17,7 @@ import InstructionsDialogButton from '@components/instructionsDialogButton'
 import handleSubmit from '@components/submitForm'
 import { initialValues, validationSchema } from '@components/formData'
 import GeneralSnackbars from '@components/generalSnackbars'
-import ClassificationDialog from '@components/classificationDialog'
+import AudioClassificationDialog from '@components/Output/audioClassificationDialog'
 
 const MapWithNoSSR = dynamic(
   () => {
@@ -71,15 +71,21 @@ const UploadAudio = props => {
   //Submit
   const submitButtonRef = useRef()
 
-  const [modelOutput, setModelOutput] = useState({})
+  const [modelOutput, setModelOutput] = useState({
+    "audio_labels": {},
+    "audio_duration": 0
+  })
   const submitForm = (data, actions) => {
     setLoading(true)
     handleSubmit(data, actions).then(res => {
       if (res.status == 200 && res.data.data.labels[1].categories.code != 503) {
         setOpenSuccess(true)
-        var model_labels = res.data.data.labels[1].categories
+        var audio_labels = res.data.data.labels[1].categories
         var audio_duration = res.data.data.duration
-        setModelOutput([model_labels, audio_duration])
+        setModelOutput({
+          "audio_labels": audio_labels,
+          "audio_duration": audio_duration
+        })
       } else setOpenFailed(true)
       setLoading(false)
     })
@@ -96,7 +102,7 @@ const UploadAudio = props => {
           openFailed={openFailed}
           handleCloseFailed={handleCloseFailed}
         />
-        <ClassificationDialog
+        <AudioClassificationDialog
           openSuccess={openSuccess}
           handleCloseSuccess={handleCloseSuccess}
           modelOutput={modelOutput}
