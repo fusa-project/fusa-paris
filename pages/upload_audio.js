@@ -80,9 +80,10 @@ const UploadAudio = props => {
     handleSubmit(data, actions).then(res => {
       if (res.status == 200) {
         setOpenSuccess(true)
+        console.log(data)
+        console.log(res.data.data.labels[1], res.data, res.data.data)
         var audio_predictions = res.data.data.labels[1].predictions
         var audio_duration = res.data.data.duration
-        console.log(audio_predictions, res.data.data.labels[1].predictions.categories)
         setModelOutput({
           "audio_predictions": audio_predictions,
           "audio_duration": audio_duration
