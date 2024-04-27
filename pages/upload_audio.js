@@ -78,11 +78,7 @@ const UploadAudio = props => {
   const submitForm = (data, actions) => {
     setLoading(true)
     handleSubmit(data, actions).then(res => {
-      console.log(res.data.data)
-      console.log(res.data.data.labels[1])
-      console.log(res.data.data.labels[1].predictions)
-      console.log(res.data.data.duration)
-      if (res.status == 200 && res.data.data.labels[1].predictions.code != 503) {
+      if (res.status == 200) {
         setOpenSuccess(true)
         var audio_predictions = res.data.data.labels[1].predictions
         var audio_duration = res.data.data.duration
