@@ -21,8 +21,9 @@ const RoadsReportDialog = ({
   modelOutput
 }) => {
   const [openClassificationDialog, setOpenClassificationDialog] = useState(false);
-  const isAudio = Object.keys(modelOutput["audio_output"]).length !== 0;
-  const isVideo = Object.keys(modelOutput["video_output"]).length !== 0;
+  const isAudioPredictions = Object.keys(modelOutput["audio_predictions"]).length !== 0;
+  const isAudioOutput = Object.keys(modelOutput["audio_output"]).length !== 0;
+  const isVideoOutput = Object.keys(modelOutput["video_output"]).length !== 0;
 
   const handleOpenClassificationDialog = () => {
     setOpenClassificationDialog(true);
@@ -32,11 +33,6 @@ const RoadsReportDialog = ({
     setOpenClassificationDialog(false);
   };
 
-  const audioOutputResults = [
-    "Un 30% de la duración del audiopresenta el evento Motocicleta",
-    "Un 80% de la duración del audiopresenta el evento Bla bla",
-    "Un 10% de la duración del audiopresenta el evento bocina"
-  ];
   const videoOutputResults = [
     { class_name: "Livianos", counter: 10, speed_average: 50 },
     { class_name: "Motocicletas", counter: 15, speed_average: 45 },
@@ -57,13 +53,13 @@ const RoadsReportDialog = ({
         <DialogTitle>{'Métricas FuSA Roads'}</DialogTitle>
         <DialogContent>
           <div className={'MuiTypography-body1 MuiTypography-colorTextSecondary'}>
-            {isAudio &&
+            {isAudioPredictions && isAudioOutput &&
               <div>
-                <AudioReportOutput output={audioOutputResults} />
+                <AudioReportOutput output={modelOutput["audio_output"]} />
                 <Button onClick={handleOpenClassificationDialog}>Ver detalle clasificación de audio</Button>
               </div>
             }
-            {isVideo && <VideoReportOutput output={modelOutput["video_output"]} />}
+            {isVideoOutput && <VideoReportOutput output={modelOutput["video_output"]} />}
           </div>
         </DialogContent>
         <DialogActions>

@@ -90,6 +90,8 @@ const FusaRoads = props => {
         setOpenSuccess(true)
         var audio_predictions;
         var video_predictions;
+        var audio_output;
+        var video_output;
         console.log("RES.DATA", res.data['audio'], res.data['video'])
         if (res.data['audio']) {
           audio_predictions = res.data['audio'].predictions;

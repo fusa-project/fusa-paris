@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
   
 const VideoReportOutput = ({output}) => {
+    console.log(output)
 
     return (
       <div>
