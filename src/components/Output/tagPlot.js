@@ -58,6 +58,7 @@ function calculateMetrics (filteredPredictions, audioDuration) {
 }
 
 const TagPlot = ({ modelOutput }) => {
+  console.log(modelOutput)
   var audio_duration = modelOutput["audio_duration"]
   const threshold = 0.01
   var filtered_predictions = filterPredictions(modelOutput["audio_predictions"], threshold)

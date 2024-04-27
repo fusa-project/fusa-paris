@@ -82,6 +82,7 @@ const UploadAudio = props => {
         setOpenSuccess(true)
         var audio_predictions = res.data.data.labels[1].predictions
         var audio_duration = res.data.data.duration
+        console.log(audio_predictions, res.data.data.labels[1].predictions.categories)
         setModelOutput({
           "audio_predictions": audio_predictions,
           "audio_duration": audio_duration
