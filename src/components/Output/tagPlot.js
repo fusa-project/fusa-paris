@@ -60,7 +60,7 @@ function calculateMetrics (filteredPredictions, audioDuration) {
 const TagPlot = ({ modelOutput }) => {
   var audio_duration = modelOutput["audio_duration"]
   const threshold = 0.01
-  var filtered_predictions = filterPredictions(modelOutput["audio_labels"], threshold)
+  var filtered_predictions = filterPredictions(modelOutput["audio_predictions"], threshold)
   var metrics = calculateMetrics(filtered_predictions, audio_duration)
   var events = metrics['event']
   var avg_accs = metrics['avg_acc']

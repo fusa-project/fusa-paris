@@ -32,7 +32,7 @@ const SEDPlot = ({ modelOutput }) => {
     var default_date = (new Date(2023, 0, 0, 0, 0)).getTime()
     const threshold = 0.1
 
-    var filtered_predictions = filterPredictions(modelOutput["audio_labels"], threshold)
+    var filtered_predictions = filterPredictions(modelOutput["audio_predictions"], threshold)
 
     let data = []
     let counter = 1

@@ -21,11 +21,9 @@ const RoadsReportDialog = ({
   modelOutput
 }) => {
   const [openClassificationDialog, setOpenClassificationDialog] = useState(false);
-  console.log(modelOutput)
-  const isAudio = Object.keys(modelOutput["audio_labels"]).length !== 0;
-  const isVideo = Object.keys(modelOutput["video_labels"]).length !== 0;
-  console.log("audio_labels", modelOutput["audio_labels"])
-  console.log("video_labels", modelOutput["video_labels"])
+  const isAudio = Object.keys(modelOutput["audio_output"]).length !== 0;
+  const isVideo = Object.keys(modelOutput["video_output"]).length !== 0;
+
   const handleOpenClassificationDialog = () => {
     setOpenClassificationDialog(true);
   };
@@ -65,7 +63,7 @@ const RoadsReportDialog = ({
                 <Button onClick={handleOpenClassificationDialog}>Ver detalle clasificación de audio</Button>
               </div>
             }
-            {isVideo && <VideoReportOutput output={videoOutputResults} />}
+            {isVideo && <VideoReportOutput output={modelOutput["video_output"]} />}
           </div>
         </DialogContent>
         <DialogActions>

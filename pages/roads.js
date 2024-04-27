@@ -76,36 +76,43 @@ const FusaRoads = props => {
   const submitButtonRef = useRef()
 
   const [modelOutput, setModelOutput] = useState({
-    "audio_labels": {},
-    "audio_duration": 0, 
-    "video_labels": {},
-    "video_duration": 0, 
+    "audio_predictions": {},
+    "audio_output": {},
+    "audio_duration": 0,
+    "video_predictions": {},
+    "video_output": {},
+    "video_duration": 0
   })
-
   const submitForm = (data, actions) => {
     setLoading(true)
     handleRoadsSubmit(data, actions).then(res => {
       if (res.status == 200) {
         setOpenSuccess(true)
-        var audio_labels;
-        var video_labels;
-        console.log("res.data", res.data)
-        if (res.data[0].categories === undefined) {
-          audio_labels = {};
+        var audio_predictions;
+        var video_predictions;
+        console.log("RES.DATA", res.data['audio'], res.data['video'])
+        if (res.data['audio']) {
+          audio_predictions = res.data['audio'].predictions;
+          audio_output = res.data['audio'].output;
         } else {
-          audio_labels = res.data[0].categories;
+          audio_predictions = {};
+          audio_output = {};
         }
-        if (res.data[1].categories === undefined) {
-          video_labels = {};
+        if (res.data['video']) {
+          video_predictions = res.data['video'].predictions;
+          video_output = res.data['video'].output;
         } else {
-          video_labels = res.data[1].categories;
+          video_predictions = {};
+          video_output = {};
         }
         var audio_duration = data.audio.duration
         var video_duration = data.video.duration
         setModelOutput({
-          "audio_labels": audio_labels,
+          "audio_predictions": audio_predictions,
+          "audio_output": audio_output,
           "audio_duration": audio_duration,
-          "video_labels": video_labels,
+          "video_predictions": video_predictions,
+          "video_output": video_output,
           "video_duration": video_duration,
         })
       } else setOpenFailed(true)

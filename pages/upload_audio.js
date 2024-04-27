@@ -72,18 +72,18 @@ const UploadAudio = props => {
   const submitButtonRef = useRef()
 
   const [modelOutput, setModelOutput] = useState({
-    "audio_labels": {},
+    "audio_predictions": {},
     "audio_duration": 0
   })
   const submitForm = (data, actions) => {
     setLoading(true)
     handleSubmit(data, actions).then(res => {
-      if (res.status == 200 && res.data.data.labels[1].categories.code != 503) {
+      if (res.status == 200 && res.data.data.labels[1].predictions.code != 503) {
         setOpenSuccess(true)
-        var audio_labels = res.data.data.labels[1].categories
+        var audio_predictions = res.data.data.labels[1].predictions
         var audio_duration = res.data.data.duration
         setModelOutput({
-          "audio_labels": audio_labels,
+          "audio_predictions": audio_predictions,
           "audio_duration": audio_duration
         })
       } else setOpenFailed(true)
