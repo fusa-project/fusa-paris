@@ -2,10 +2,15 @@
 
 ## Getting Started
 
-To run this app, simply do:
+### Directly
 
 ```sh
 nvm use 16
 npm i
 npm run dev
+```
+
+### Docker
+```sh
+docker-compose up --build -d
 ```
